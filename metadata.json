@@ -1,0 +1,7 @@
+{
+  "name": "Rudra Wellness Centre",
+  "description": "A comprehensive clinic management system with dynamic CMS, appointment booking, and patient portal.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}

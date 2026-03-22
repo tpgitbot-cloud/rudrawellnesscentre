@@ -1,0 +1,88 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile for patients and doctors",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Firebase Auth UID" },
+        "name": { "type": "string", "description": "Full name" },
+        "email": { "type": "string", "format": "email", "description": "Email address" },
+        "role": { "type": "string", "enum": ["admin", "patient"], "description": "User role" },
+        "phone": { "type": "string", "description": "Phone number for WhatsApp" }
+      },
+      "required": ["uid", "name", "email", "role"]
+    },
+    "Appointment": {
+      "title": "Appointment",
+      "description": "Appointment booking details",
+      "type": "object",
+      "properties": {
+        "patientId": { "type": "string", "description": "UID of the patient" },
+        "patientName": { "type": "string", "description": "Name of the patient" },
+        "patientPhone": { "type": "string", "description": "Phone of the patient" },
+        "date": { "type": "string", "format": "date", "description": "Appointment date (YYYY-MM-DD)" },
+        "time": { "type": "string", "description": "Appointment time" },
+        "reason": { "type": "string", "description": "Reason for visit" },
+        "status": { "type": "string", "enum": ["pending", "confirmed", "cancelled", "completed"], "description": "Status of appointment" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp" }
+      },
+      "required": ["patientId", "date", "time", "status"]
+    },
+    "Service": {
+      "title": "Service",
+      "description": "Clinic service details",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Service name" },
+        "description": { "type": "string", "description": "Service description" },
+        "image": { "type": "string", "description": "Service image URL" }
+      },
+      "required": ["name", "description"]
+    },
+    "Testimonial": {
+      "title": "Testimonial",
+      "description": "Patient review",
+      "type": "object",
+      "properties": {
+        "patientName": { "type": "string", "description": "Name of patient" },
+        "content": { "type": "string", "description": "Review content" },
+        "rating": { "type": "number", "description": "Rating out of 5" },
+        "approved": { "type": "boolean", "description": "Whether approved by admin" }
+      },
+      "required": ["patientName", "content", "rating", "approved"]
+    },
+    "BlogPost": {
+      "title": "BlogPost",
+      "description": "Health tips and news",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "description": "Post title" },
+        "content": { "type": "string", "description": "Post content in markdown" },
+        "author": { "type": "string", "description": "Author name" },
+        "date": { "type": "string", "format": "date", "description": "Publication date" },
+        "image": { "type": "string", "description": "Post image URL" }
+      },
+      "required": ["title", "content", "author", "date"]
+    },
+    "ClinicInfo": {
+      "title": "ClinicInfo",
+      "description": "General clinic information for CMS",
+      "type": "object",
+      "properties": {
+        "about": { "type": "string", "description": "About the clinic" },
+        "team": { "type": "string", "description": "Team description" },
+        "contact": { "type": "object", "description": "Contact details" },
+        "emergencyBanner": { "type": "string", "description": "Emergency notice" }
+      }
+    }
+  },
+  "firestore": {
+    "/users/{userId}": { "schema": "User", "description": "User profiles" },
+    "/appointments/{appointmentId}": { "schema": "Appointment", "description": "Appointment bookings" },
+    "/services/{serviceId}": { "schema": "Service", "description": "Clinic services" },
+    "/testimonials/{testimonialId}": { "schema": "Testimonial", "description": "Patient testimonials" },
+    "/blogPosts/{postId}": { "schema": "BlogPost", "description": "Blog posts" },
+    "/clinicInfo/general": { "schema": "ClinicInfo", "description": "General clinic information" }
+  }
+}
